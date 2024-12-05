@@ -3,7 +3,7 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - master 
+      - master
 
 jobs:
   build-and-push:
@@ -17,15 +17,14 @@ jobs:
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
     - name: Build Docker Image
-      env: 
-        BINANCE_API_KEY: ${{ secrets.BINANCE_API_KEY }} 
+      env:
+        BINANCE_API_KEY: ${{ secrets.BINANCE_API_KEY }}
         BINANCE_API_SECRET: ${{ secrets.BINANCE_API_SECRET }}
       run: |
         docker build \
           --build-arg BINANCE_API_KEY=${BINANCE_API_KEY} \
           --build-arg BINANCE_API_SECRET=${BINANCE_API_SECRET} \
-          -t yassyolo/binance-image:latest -f Dockerfile .
+          -t yassyolo/binance_repository:latest -f Dockerfile .
 
     - name: Push Docker Image
-      run: docker push yassyolo/binance-image:latest
-
+      run: docker push yassyolo/binance_repository:latest
